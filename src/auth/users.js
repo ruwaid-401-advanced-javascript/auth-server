@@ -10,7 +10,7 @@ const Users = mongoose.Schema({
 });
 
 Users.pre('save', async function () {
-  this.password = await bcrypt.hash(this.password, 6);
+  this.password = await bcrypt.hash(this.password, 2);
 });
 
 Users.statics.authenticate = function (username, pass) {

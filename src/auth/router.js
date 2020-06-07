@@ -17,7 +17,6 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-// check this username if the password submitted matches the encrypted one we have saved in our db
 router.post('/signin', basicAuth, (req, res) => {
   // res.headers.token = req.token;
   res.status(200).json({ 'token': req.token, 'user': req.data });
