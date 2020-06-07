@@ -5,7 +5,6 @@
  * @module index
  */
 
-
 // 3rd party lib
 require('dotenv').config();
 const mongoose = require('mongoose');
