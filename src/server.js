@@ -1,16 +1,23 @@
 'use strict';
 const express = require('express');
+const morgan = require('morgan');
 
-const error404 = require('../middleware/404');
-const error500 = require('../middleware/500');
+const error404 = require('./middleware/404');
+const error500 = require('./middleware/500');
+const router = require('./auth/router');
+
 
 const app = express();
 app.use('/docs', express.static('./docs'));
 app.use(express.json());
+app.use(morgan('dev'));
+// app.use(express.cookieParser());
+
 
 app.get('/', (req, res) => res.status(200).send('hiii'));
 
 
+app.use(router);
 
 app.get('/error500',fakeError);
 function fakeError(req,res,next){
