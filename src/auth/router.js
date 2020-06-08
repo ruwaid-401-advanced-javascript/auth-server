@@ -5,7 +5,7 @@ const router = express.Router();
 
 const usersSchema = require('./users');
 const basicAuth = require('./middleware/basic-auth-middleware');
-
+const OAuthMiddleware = require('./middleware/oauth');
 router.post('/signup', async (req, res, next) => {
   try {
     let users = new usersSchema(req.body);
@@ -25,6 +25,10 @@ router.post('/signin', basicAuth, (req, res) => {
 router.get('/users', async (req, res) => {
   let users = await usersSchema.findAll();
   res.status(200).json({users});
+});
+
+router.get('/oauth',OAuthMiddleware, async (req, res) => {
+  res.status(200).json({'token':req.token,'user':req.user});
 });
 
 module.exports = router;

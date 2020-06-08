@@ -9,12 +9,13 @@ const router = require('./auth/router');
 
 const app = express();
 app.use('/docs', express.static('./docs'));
+app.use('/login', express.static('./public'));
 app.use(express.json());
 app.use(morgan('dev'));
 // app.use(express.cookieParser());
 
 
-app.get('/', (req, res) => res.status(200).send('hiii'));
+app.get('/', (req, res) => res.status(200).send('hiii  go to --->> /login  route to try github OAuth'));
 
 
 app.use(router);
