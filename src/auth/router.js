@@ -18,8 +18,10 @@ router.post('/signup', async (req, res, next) => {
 });
 
 router.post('/signin', basicAuth, (req, res) => {
-  // res.headers.token = req.token;
-  res.status(200).json({ 'token': req.token, 'user': req.data });
+  res.headers.token = req.token;
+  let token = req.token;
+  res.cookie('token', token);
+  res.status(200).json({ 'token': token, 'user': req.data });
 });
 
 router.get('/users', async (req, res) => {
