@@ -1,4 +1,4 @@
-# LAB - Class 11
+# LAB - Class 12
 
 ## Project: Auth-server
 
@@ -6,8 +6,8 @@
 
 ### Links and Resources
 
-- [submission PR](https://github.com/ruwaid-401-advanced-javascript/auth-server/pull/2)
-- [Github actions](https://github.com/ruwaid-401-advanced-javascript/auth-server/pull/2/checks)
+- [submission PR](https://github.com/ruwaid-401-advanced-javascript/auth-server/pull/3)
+- [Github actions](https://github.com/ruwaid-401-advanced-javascript/auth-server/pull/3/checks)
 
 ### Documentaion
 * EndPoint: `/docs` 
@@ -31,6 +31,7 @@
 * EndPoint: `/login` 
 * EndPoint: `/docs` 
 * EndPoint: `/users` 
+* EndPoint: `/secret` --> need token
 * EndPoint: `/signin` 
 * EndPoint: `/signup` 
 

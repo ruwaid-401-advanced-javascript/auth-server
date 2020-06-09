@@ -1,5 +1,7 @@
 'use strict';
-
+/**
+ * @module extraRoute
+ */
 
 const express = require('express');
 const router = express.Router();
