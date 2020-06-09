@@ -30,5 +30,8 @@ Users.statics.findAll = async function () {
   return await this.find({});
 };
 
+Users.statics.findOneByUser = async function (username) {
+  return await this.find({username});
+};
 
 module.exports = mongoose.model('Users', Users);

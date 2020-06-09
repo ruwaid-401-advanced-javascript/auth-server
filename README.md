@@ -6,8 +6,8 @@
 
 ### Links and Resources
 
-- [submission PR](https://github.com/ruwaid-401-advanced-javascript/auth-server/pull/1)
-- [Github actions](https://github.com/ruwaid-401-advanced-javascript/auth-server/pull/1/checks)
+- [submission PR](https://github.com/ruwaid-401-advanced-javascript/auth-server/pull/2)
+- [Github actions](https://github.com/ruwaid-401-advanced-javascript/auth-server/pull/2/checks)
 
 ### Documentaion
 * EndPoint: `/docs` 
@@ -22,10 +22,13 @@
 * PORT - Port Number
 * MONGODB_URI - URL to the running mongo instance/db
 * SECRET - to generate accses token
+* CLIENT_ID - github client id
+* CLIENT_SECRET - github client secret
 
 #### How to initialize/run your application 
 * `npm start`
 * EndPoint: `/` 
+* EndPoint: `/login` 
 * EndPoint: `/docs` 
 * EndPoint: `/users` 
 * EndPoint: `/signin` 
