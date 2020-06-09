@@ -6,6 +6,8 @@ const router = express.Router();
 const usersSchema = require('./users');
 const basicAuth = require('./middleware/basic-auth-middleware');
 const OAuthMiddleware = require('./middleware/oauth');
+const bearerAuth = require('./middleware/bearer-auth');
+
 router.post('/signup', async (req, res, next) => {
   try {
     let users = new usersSchema(req.body);
@@ -17,14 +19,13 @@ router.post('/signup', async (req, res, next) => {
   }
 });
 
-router.post('/signin', basicAuth, (req, res) => {
-  res.headers.token = req.token;
+router.post('/signin', basicAuth, (req, res) => {  
   let token = req.token;
   res.cookie('token', token);
   res.status(200).json({ 'token': token, 'user': req.data });
 });
 
-router.get('/users', async (req, res) => {
+router.get('/users',bearerAuth, async (req, res) => {
   let users = await usersSchema.findAll();
   res.status(200).json({users});
 });
@@ -32,5 +33,8 @@ router.get('/users', async (req, res) => {
 router.get('/oauth',OAuthMiddleware, async (req, res) => {
   res.status(200).json({'token':req.token,'user':req.user});
 });
+
+
+
 
 module.exports = router;
