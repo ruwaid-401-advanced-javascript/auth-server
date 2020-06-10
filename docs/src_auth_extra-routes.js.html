@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: src/middleware/404.js</title>
+    <title>JSDoc: Source: src/auth/extra-routes.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: src/middleware/404.js</h1>
+    <h1 class="page-title">Source: src/auth/extra-routes.js</h1>
 
     
 
@@ -27,28 +27,47 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>'use strict';
-
 /**
- * (Middleware) set the response status to 404 and send an error 
- * @module 404
+ * @module extraRoute
  */
 
-/**
-* Input 
-* @function notFoundHandler
-* @param req - request
-* @param res  - response
-* @param next - next
-*/
-function notFoundHandler(req, res, next) {
-  res.status(404);
-  res.send({
-    err: 'not found',
-    status: '404',
-  });
+const express = require('express');
+const router = express.Router();
+
+const bearerMiddleware = require('./middleware/bearer-auth');
+const permissions = require('./middleware/authorize');
+
+
+router.get('/secret', bearerMiddleware,secretfunc);
+router.get('/read', bearerMiddleware, permissions('read'), readfunc);
+router.post('/add', bearerMiddleware, permissions('create'), addfunc);
+router.put('/change', bearerMiddleware, permissions('update'), changefunc);
+router.delete('/remove', bearerMiddleware, permissions('delete'), removefunc);
+
+
+
+function secretfunc(req,res){
+  res.status(200).send('you know our secret now ---Welcome---');
 }
 
-module.exports = notFoundHandler;
+
+function readfunc(req,res){
+  res.status(200).send('Do you see this? if yes so you have the permission to read');
+}
+
+function addfunc(req,res){
+  res.status(200).send('Do you see this? if yes so you have the permission to add');
+}
+
+function changefunc(req,res){
+  res.status(200).send('Do you see this? if yes so you have the permission to change');
+}
+
+function removefunc(req,res){
+  res.status(200).send('Do you see this? if yes so you have the permission to remove');
+}
+
+module.exports = router;
 </code></pre>
         </article>
     </section>

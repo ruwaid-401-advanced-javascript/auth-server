@@ -12,11 +12,11 @@ const usersSchema = require('./users');
 const basicAuth = require('./middleware/basic-auth-middleware');
 const OAuthMiddleware = require('./middleware/oauth');
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', async(req, res, next) => {
   try {
     let users = new usersSchema(req.body);   
-    let result = users.save();
-    let token =  usersSchema.generateToken(result);
+    let result = await users.save();
+    let token = usersSchema.generateToken(result);
 
     res.status(200).send(token);
   } catch (e) {
@@ -25,11 +25,8 @@ router.post('/signup', (req, res, next) => {
 });
 
 router.post('/signin', basicAuth, (req, res) => {  
- 
-  
   // let token = req.token;
   let token = usersSchema.generateToken(req.data);
-
   res.cookie('token', token);
   res.status(200).json({ 'token': token, 'user': req.data });
 });

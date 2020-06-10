@@ -4,7 +4,6 @@ const Users = require('../users');
 
 
 module.exports = (capability) => {
-
   return async (req, res, next) => {
     try {
       if (Users.athenticateRole(req.user, capability)) {
