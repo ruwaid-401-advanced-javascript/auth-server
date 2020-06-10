@@ -17,22 +17,39 @@ const mongoose = require('mongoose');
 const Users = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  role: { type: String, default: 'user' },
 });
 
 Users.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, 2);
 });
 
+
+/**
+ * @method athenticateRole
+ * @param {string} user
+ * @param {string} capability
+ */
+
+Users.statics.athenticateRole = async function (user, capability) {
+  let roles = {
+    user: ['read'],
+    writers: ['read', 'create'],
+    editors: ['read', 'update', 'create'],
+    Administrators: ['read', 'update', 'create', 'delete'],
+  };
+  return !!roles[user.capabilities].includes(capability);
+};
+
 /**
  * @method authenticate
  * @param {string} username
  * @param {string} password
  */
-Users.statics.authenticate =  function (username, pass) {
+Users.statics.authenticate = function (username, pass) {
   return this.find({ username })
-    .then(async(user) => {     
-      let returnedValue = await bcrypt.compare(pass, user[0].password) ? user[0] : null;
-      return returnedValue;
+    .then(async (user) => {
+      return bcrypt.compare(pass, user[0].password) ? user[0] : null;
     });
 };
 
@@ -41,8 +58,11 @@ Users.statics.authenticate =  function (username, pass) {
  * @param {object} user
  * @returns {string} token
  */
-Users.statics.generateToken =  function (user) {
-  let token =  jwt.sign({ username: user.username }, process.env.SECRET, { expiresIn: 60 * 15 });
+Users.statics.generateToken = function (user) {
+  let token = jwt.sign({
+    username: user.username,
+    capabilities: user.role,
+  }, process.env.SECRET, { expiresIn: 60 * 15 });
   return token;
 };
 
@@ -50,16 +70,18 @@ Users.statics.generateToken =  function (user) {
  * @method findAll
  * find all saved users in DB
  */
-Users.statics.findAll = async function () {
-  return await this.find({});
+Users.statics.findAll = function () {
+  return this.find({});
 };
 
 /**
  * @method findOneByUser
  * @param {string} username
  */
-Users.statics.findOneByUser = async function (username) {
-  return await this.find({ username });
+Users.statics.findOneByUser = function (username) {
+  console.log(username);
+
+  return this.find({ username });
 };
 
 /**

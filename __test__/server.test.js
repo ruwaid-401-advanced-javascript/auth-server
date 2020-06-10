@@ -29,7 +29,7 @@ describe('server.js', () => {
 
   it('POST  /signup ', () => {
     let testData = {
-      'username':'test user',
+      'username':'test user99',
       'password': '55',
     };
     return mockRequest

@@ -12,12 +12,10 @@ const usersSchema = require('./users');
 const basicAuth = require('./middleware/basic-auth-middleware');
 const OAuthMiddleware = require('./middleware/oauth');
 
-router.post('/signup', async (req, res, next) => {
+router.post('/signup', (req, res, next) => {
   try {
-    let users = new usersSchema(req.body);
-    
-    let result = await users.save();
-    
+    let users = new usersSchema(req.body);   
+    let result = users.save();
     let token =  usersSchema.generateToken(result);
 
     res.status(200).send(token);
