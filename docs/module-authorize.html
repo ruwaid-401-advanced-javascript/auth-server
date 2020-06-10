@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: 404</title>
+    <title>JSDoc: Module: authorize</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: 404</h1>
+    <h1 class="page-title">Module: authorize</h1>
 
     
 
@@ -38,7 +38,7 @@
     <div class="container-overview">
     
         
-            <div class="description">(Middleware) set the response status to 404 and send an error</div>
+            <div class="description">(Middleware) to checck the permision for the user</div>
         
 
         
@@ -87,7 +87,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_middleware_404.js.html">src/middleware/404.js</a>, <a href="src_middleware_404.js.html#line3">line 3</a>
+        <a href="src_auth_middleware_authorize.js.html">src/auth/middleware/authorize.js</a>, <a href="src_auth_middleware_authorize.js.html#line3">line 3</a>
     </li></ul></dd>
     
 
@@ -144,7 +144,7 @@
     
 
     
-    <h4 class="name" id="~notFoundHandler"><span class="type-signature">(inner) </span>notFoundHandler<span class="signature">(req, res, next)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~capability"><span class="type-signature">(inner) </span>capability<span class="signature">(capability, req, res, next)</span><span class="type-signature"></span></h4>
     
 
     
@@ -184,6 +184,24 @@
     </thead>
 
     <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>capability</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">capability</td>
+        </tr>
+
     
 
         <tr>
@@ -235,7 +253,8 @@
 
             
 
-            <td class="description last">next</td>
+            <td class="description last">next
+test if the user have permission to do the requested permision</td>
         </tr>
 
     
@@ -276,7 +295,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="src_middleware_404.js.html">src/middleware/404.js</a>, <a href="src_middleware_404.js.html#line8">line 8</a>
+        <a href="src_auth_middleware_authorize.js.html">src/auth/middleware/authorize.js</a>, <a href="src_auth_middleware_authorize.js.html#line8">line 8</a>
     </li></ul></dd>
     
 

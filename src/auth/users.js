@@ -31,13 +31,13 @@ Users.pre('save', async function () {
  * @param {string} capability
  */
 
-Users.statics.athenticateRole = async function (user, capability) {
+Users.statics.athenticateRole = function (user, capability) {
   let roles = {
     user: ['read'],
     writers: ['read', 'create'],
     editors: ['read', 'update', 'create'],
     Administrators: ['read', 'update', 'create', 'delete'],
-  };
+  }; 
   return !!roles[user.capabilities].includes(capability);
 };
 
@@ -79,8 +79,6 @@ Users.statics.findAll = function () {
  * @param {string} username
  */
 Users.statics.findOneByUser = function (username) {
-  console.log(username);
-
   return this.find({ username });
 };
 

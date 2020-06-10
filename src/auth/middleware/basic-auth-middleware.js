@@ -1,5 +1,20 @@
 'use strict';
 
+/**
+ * (Middleware) for Basic authorization
+ * @module 500
+ */
+
+/**
+* Input 
+* @function errorHandler
+* @param req - request
+* @param res  - response
+* @param next - next
+* test if the header have an authorization then decode it and generate token
+*/
+
+
 const users = require('../users');
 const base64 = require('base-64');
 

@@ -83,7 +83,7 @@ describe('server.js', () => {
       });
   });
 
-  it('/read test with wrong token', () => {
+  it('/read test with wrong token that have user type as role', () => {
     return mockRequest
       .get('/read')
       .set('Authorization', 'Bearer dGVzdCB1c2VyOjU1')
@@ -92,7 +92,7 @@ describe('server.js', () => {
       });
   });
 
-  it('/read test with correct token', () => {
+  it('/read test with correct token that have user type as role', () => {
     return mockRequest
       .get('/read')
       .set('Authorization', `Bearer ${token}`)
@@ -101,7 +101,62 @@ describe('server.js', () => {
       });
   });
 
-  it('/add test with correct token', () => {
+  it('/add test with correct token that have user type as role', () => {
+    return mockRequest
+      .post('/add')
+      .set('Authorization', `Bearer ${token}`)
+      .then(data => {
+        expect(data.status).toBe(500);
+      });
+  });
+
+  it('/remove test with correct token that have user type as role', () => {
+    return mockRequest
+      .delete('/remove')
+      .set('Authorization', `Bearer ${token}`)
+      .then(data => {
+        expect(data.status).toBe(500);
+      });
+  });
+
+
+  it('POST  /signup editors user', () => {
+    let testData = {
+      'username': 'test user editor',
+      'password': '55',
+      'role':'editors',
+    };
+    return mockRequest
+      .post('/signup')
+      .set('Content-Type', 'application/json')
+      .send(testData)
+      .then(data => {
+        expect(data.status).toBe(200);
+      });
+  });
+
+  it('POST with a correct encoded value /signin editors user', () => {
+    return mockRequest
+      .post('/signin')
+      .set('Content-Type', 'application/json')
+      .set('Authorization', 'Basic dGVzdCB1c2VyIGVkaXRvcjo1NQ==')
+      .then(data => {
+        token = data.body.token;
+        expect(data.status).toBe(200);
+      });
+  });
+
+  
+  it('/read test with correct token that have editors type as role', () => {
+    return mockRequest
+      .get('/read')
+      .set('Authorization', `Bearer ${token}`)
+      .then(data => {
+        expect(data.status).toBe(200);
+      });
+  });
+
+  it('/add test with correct token that have editors type as role', () => {
     return mockRequest
       .post('/add')
       .set('Authorization', `Bearer ${token}`)
@@ -110,13 +165,21 @@ describe('server.js', () => {
       });
   });
 
-  it('/remove test with correct token', () => {
+  it('/change test with correct token that have editors type as role', () => {
     return mockRequest
-      .delete('/remove')
+      .put('/change')
       .set('Authorization', `Bearer ${token}`)
       .then(data => {
         expect(data.status).toBe(200);
       });
   });
 
+  it('/remove test with correct token that have editors type as role', () => {
+    return mockRequest
+      .delete('/remove')
+      .set('Authorization', `Bearer ${token}`)
+      .then(data => {
+        expect(data.status).toBe(500);
+      });
+  });
 });

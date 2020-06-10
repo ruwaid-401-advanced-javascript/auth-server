@@ -9,7 +9,7 @@ describe('basic auth ', () => {
   it('should respond with error', () => {
     let req = { headers: { authorization: null } };
     bearer(req, res, next);
-    expect(next).toHaveBeenCalled();
+    expect(next).toHaveBeenCalledWith('User is not loggedin');
   });
   it('should respond with error', () => {
     let req = { headers: { authorization: 'Basic dasdr54sada6scac1a' } };

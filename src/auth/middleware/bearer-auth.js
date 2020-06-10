@@ -15,7 +15,10 @@ function bearer(req, res, next) {
     .then(decodedUserObject => {
       req.user = decodedUserObject;
       next();
-    }).catch(err => next('Protected: Invalid User Token'));
+    }).catch(err => {
+      next('Protected: Invalid User Token');
+      return;
+    });
 
 }
 
