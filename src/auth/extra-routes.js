@@ -7,7 +7,7 @@ const express = require('express');
 const router = express.Router();
 
 const bearerMiddleware = require('./middleware/bearer-auth');
-const permissions = require('./middleware/bearer-auth');
+const permissions = require('./middleware/authorize');
 
 
 router.get('/secret', bearerMiddleware,secretfunc);
