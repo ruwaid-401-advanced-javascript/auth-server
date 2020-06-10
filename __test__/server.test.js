@@ -1,9 +1,9 @@
 'use strict';
-
+require('@code-fellows/supergoose');
 const { server } = require('../src/server');
-const supergoose = require('@code-fellows/supergoose');
+const supertest = require('supertest');
 
-const mockRequest = supergoose(server);
+const mockRequest = supertest(server);
 require('dotenv').config();
 let token = null;
 
