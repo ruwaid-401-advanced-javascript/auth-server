@@ -2,7 +2,7 @@
 require('@code-fellows/supergoose');
 const { server } = require('../src/server');
 const supertest = require('supertest');
-
+const mongoose = require('mongoose');
 const mockRequest = supertest(server);
 require('dotenv').config();
 let token = null;
