@@ -59,10 +59,11 @@ Users.statics.authenticate = function (username, pass) {
  * @returns {string} token
  */
 Users.statics.generateToken =  function (user) {
+  let expire = process.env.EXPIRE;
   let token = jwt.sign({
-    username: user.username,
+    id: user.id,
     capabilities: user.role,
-  }, process.env.SECRET, { expiresIn: 60 * 15 });
+  }, process.env.SECRET, {expiresIn:expire});
   return token;
 };
 
@@ -87,11 +88,12 @@ Users.statics.findOneByUser = function (username) {
  * @param {string} token
  */
 Users.statics.verifyToken = async function (token) {
+  
   return jwt.verify(token, process.env.SECRET, function (err, decoded) {
     if (err) {
       return Promise.reject(err);
-    }
-    if (decoded.username) {
+    }    
+    if (decoded.id) {
       return Promise.resolve(decoded);
     } else {
       return Promise.reject();
