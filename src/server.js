@@ -16,14 +16,11 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(helmet());
 
-// app.use(express.cookieParser());
-
-
 app.get('/', (req, res) => res.status(200).send('hiii  go to --->> /login  route to try github OAuth'));
-app.use('/secret',secretRouter);
 
 
 app.use(router);
+app.use(secretRouter);
 
 app.get('/error500',fakeError);
 function fakeError(req,res,next){

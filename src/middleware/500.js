@@ -8,6 +8,7 @@
 /**
 * Input 
 * @function errorHandler
+* @param err - error
 * @param req - request
 * @param res  - response
 * @param next - next

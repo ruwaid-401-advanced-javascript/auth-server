@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: src/middleware/404.js</title>
+    <title>JSDoc: Source: src/auth/router.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: src/middleware/404.js</h1>
+    <h1 class="page-title">Source: src/auth/router.js</h1>
 
     
 
@@ -29,26 +29,49 @@
             <pre class="prettyprint source linenums"><code>'use strict';
 
 /**
- * (Middleware) set the response status to 404 and send an error 
- * @module 404
+ * @module routes
+ * handle routes requests
  */
 
-/**
-* Input 
-* @function notFoundHandler
-* @param req - request
-* @param res  - response
-* @param next - next
-*/
-function notFoundHandler(req, res, next) {
-  res.status(404);
-  res.send({
-    err: 'not found',
-    status: '404',
-  });
-}
+const express = require('express');
+const router = express.Router();
 
-module.exports = notFoundHandler;
+const usersSchema = require('./users');
+const basicAuth = require('./middleware/basic-auth-middleware');
+const OAuthMiddleware = require('./middleware/oauth');
+
+router.post('/signup', async(req, res, next) => {
+  try {
+    let users = new usersSchema(req.body);   
+    let result = await users.save();
+    let token = usersSchema.generateToken(result);
+
+    res.status(200).send(token);
+  } catch (e) {
+    next('error username is duplicated');
+  }
+});
+
+router.post('/signin', basicAuth, (req, res) => {  
+  // let token = req.token;
+  let token = usersSchema.generateToken(req.data);
+  res.cookie('token', token);
+  res.status(200).json({ 'token': token, 'user': req.data });
+});
+
+router.get('/users', async (req, res) => {
+  let users = await usersSchema.findAll();
+  res.status(200).json({users});
+});
+
+router.get('/oauth',OAuthMiddleware, async (req, res) => {
+  res.status(200).json({'token':req.token,'user':req.user});
+});
+
+
+
+
+module.exports = router;
 </code></pre>
         </article>
     </section>
