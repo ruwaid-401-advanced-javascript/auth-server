@@ -1,10 +1,12 @@
 'use strict';
 const express = require('express');
 const morgan = require('morgan');
+const helmet = require('helmet');
 
 const error404 = require('./middleware/404');
 const error500 = require('./middleware/500');
 const router = require('./auth/router');
+const secretRouter = require('./auth/extra-routes');
 
 
 const app = express();
@@ -12,10 +14,13 @@ app.use('/docs', express.static('./docs'));
 app.use('/login', express.static('./public'));
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(helmet());
+
 // app.use(express.cookieParser());
 
 
 app.get('/', (req, res) => res.status(200).send('hiii  go to --->> /login  route to try github OAuth'));
+app.use('/secret',secretRouter);
 
 
 app.use(router);
@@ -24,6 +29,7 @@ app.get('/error500',fakeError);
 function fakeError(req,res,next){
   next('wooow ther is an error');
 }
+
 
 app.use(error404);
 app.use(error500);
