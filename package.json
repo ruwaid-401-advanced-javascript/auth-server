@@ -25,7 +25,7 @@
   "homepage": "https://github.com/ruwaid-401-advanced-javascript/auth-server#readme",
   "dependencies": {
     "base-64": "^0.1.0",
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "express": "^4.17.1",
     "helmet": "^3.22.0",
     "jsonwebtoken": "^8.5.1",
